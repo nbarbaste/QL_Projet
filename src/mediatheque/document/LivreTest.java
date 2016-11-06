@@ -11,7 +11,8 @@ import mediatheque.Localisation;
 import mediatheque.OperationImpossible;
 import util.InvariantBroken;
 
-public class LivreTest {
+public class LivreTest 
+{
 
 	Localisation localisation;
 	Genre genre;

@@ -11,7 +11,8 @@ import mediatheque.Localisation;
 import mediatheque.OperationImpossible;
 import util.InvariantBroken;
 
-public class VideoTest {
+public class VideoTest 
+{
 
 	Localisation localisation;
 	Genre genre;

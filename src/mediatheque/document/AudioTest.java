@@ -18,7 +18,8 @@ import util.InvariantBroken;
  * @author Nicolas
  *
  */
-public class AudioTest {
+public class AudioTest 
+{
 	
 	Localisation localisation;
 	Genre genre;
