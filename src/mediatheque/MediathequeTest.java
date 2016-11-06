@@ -10,6 +10,10 @@ import mediatheque.document.Audio;
 import util.InvariantBroken;
 
 public class MediathequeTest {
+	String nom = "Nom";
+	String nomGenre = "Genre";
+	String salle = "Salle";
+	String rayon = "Rayon";
 	Mediatheque med;
 
 	@Before
@@ -23,7 +27,6 @@ public class MediathequeTest {
 
 	@Test
 	public void testMediatheque() {
-		String nom = "nom";
 		Mediatheque med1 = new Mediatheque(nom);
 		
 		assertEquals(nom,med1.getNom());
@@ -31,16 +34,14 @@ public class MediathequeTest {
 	
 	@Test
 	public void testChercherGenreEchec() throws OperationImpossible {
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		assertEquals(null,med1.chercherGenre(nomGenre));
 	}
 
 	@Test
 	public void testChercherGenre() throws OperationImpossible {
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterGenre(nomGenre);
 		
@@ -49,16 +50,14 @@ public class MediathequeTest {
 
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerGenreImpossible1() throws OperationImpossible {
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.supprimerGenre(nomGenre);
 	}
 	
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerGenreImpossible2() throws OperationImpossible, InvariantBroken{
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		Audio audio = new Audio("code",new Localisation("salle","rayon"),"titre","auteur","annee",new Genre(nomGenre),"class");
 		
 		med1.ajouterGenre(nomGenre);
@@ -68,8 +67,7 @@ public class MediathequeTest {
 	
 	@Test
 	public void testSupprimerGenre() throws OperationImpossible, InvariantBroken{
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterGenre(nomGenre);
 		med1.supprimerGenre(nomGenre);
@@ -79,19 +77,15 @@ public class MediathequeTest {
 	
 	@Test(expected=OperationImpossible.class)
 	public void testAjouterGenreImpossible() throws OperationImpossible{
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterGenre(nomGenre);
 		med1.ajouterGenre(nomGenre);
-		
-		assertEquals(new Genre(nomGenre),med1.chercherGenre(nomGenre));
 	}
 
 	@Test
 	public void testAjouterGenre() throws OperationImpossible{
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterGenre(nomGenre);
 		
@@ -100,17 +94,15 @@ public class MediathequeTest {
 
 	@Test(expected=OperationImpossible.class)
 	public void testModifierGenreImpossible() throws OperationImpossible{
-		String nomGenre = "Genre";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.modifierGenre(nomGenre,"nouveau");
 	}
 	
 	@Test
 	public void testModifierGenre() throws OperationImpossible{
-		String nomGenre = "Genre";
 		String nouveau = "nouveau";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterGenre(nomGenre);
 		med1.modifierGenre(nomGenre,nouveau);
@@ -121,18 +113,14 @@ public class MediathequeTest {
 	
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerLocalisationImpossible1() throws OperationImpossible{
-		String salle = "Salle";
-		String rayon = "Rayon";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.supprimerLocalisation(salle,rayon);
 	}
 	
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerLocalisationImpossible2() throws OperationImpossible, InvariantBroken{
-		String salle = "Salle";
-		String rayon = "Rayon";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		Audio audio = new Audio("code",new Localisation(salle,rayon),"titre","auteur","annee",new Genre("nom"),"class");
 		
 		med1.ajouterLocalisation(salle,rayon);
@@ -142,9 +130,7 @@ public class MediathequeTest {
 
 	@Test
 	public void testSupprimerLocalisation() throws OperationImpossible{
-		String salle = "Salle";
-		String rayon = "Rayon";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterLocalisation(salle,rayon);
 		med1.supprimerLocalisation(salle,rayon);
@@ -154,27 +140,35 @@ public class MediathequeTest {
 
 	@Test
 	public void testChercherLocalisationEchec() throws OperationImpossible {
-		String salle = "Salle";
-		String rayon = "Rayon";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		assertEquals(null,med1.chercherLocalisation(salle,rayon));
 	}
 
 	@Test
 	public void testChercherLocalisation() throws OperationImpossible {
-		String salle = "Salle";
-		String rayon = "Rayon";
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterLocalisation(salle,rayon);
 		
 		assertEquals(new Localisation(salle,rayon),med1.chercherLocalisation(salle,rayon));
 	}
 
+	@Test(expected=OperationImpossible.class)
+	public void testAjouterLocalisationImpossible() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterLocalisation(salle,rayon);
+		med1.ajouterLocalisation(salle,rayon);
+	}
+
 	@Test
-	public void testAjouterLocalisation() {
-		fail("Not yet implemented");
+	public void testAjouterLocalisation() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque("nom");
+		
+		med1.ajouterLocalisation(salle,rayon);
+		
+		assertEquals(new Localisation(salle,rayon),med1.chercherLocalisation(salle,rayon));
 	}
 
 	@Test
