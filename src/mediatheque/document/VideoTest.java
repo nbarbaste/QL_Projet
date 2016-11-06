@@ -58,19 +58,19 @@ public class VideoTest {
 	@Test(expected=OperationImpossible.class)
 	public void testVideoDureeZero() throws OperationImpossible, InvariantBroken 
 	{
-		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 0, "Mention Légale");
+		new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 0, "Mention Légale");
 	}
 	
 	@Test(expected=OperationImpossible.class)
 	public void testVideoMentionLegaleNull() throws OperationImpossible, InvariantBroken 
 	{
-		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 120, null);
+		new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 120, null);
 	}
 	
 	@Test(expected=InvariantBroken.class)
 	public void testVideoDureeNegative() throws OperationImpossible, InvariantBroken 
 	{
-		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
+		new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
 	}
 
 	@Test(expected=InvariantBroken.class)

@@ -205,13 +205,12 @@ public class ClientTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testDateRetour() throws OperationImpossible{
-		Client cl = new Client("nom","prenom");
-		
 		Date jour = new Date(2010,10,10);
 		int duree = 7;
-		Date nouveauJour = cl.dateRetour(jour,duree);
 		
-		assertTrue(nouveauJour.equals(Datutil.addDate(jour, duree)));
+		Date nouveauJour = cl1.dateRetour(jour,duree);
+		
+		assertEquals(nouveauJour,Datutil.addDate(jour, duree));
 	}
 
 	@Test
