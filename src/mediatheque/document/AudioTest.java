@@ -63,7 +63,7 @@ public class AudioTest {
 	@Test(expected=OperationImpossible.class)
 	public void testAudioClassificationNull() throws OperationImpossible, InvariantBroken 
 	{
-		Audio au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, null);
+		new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, null);
 	}
 
 }

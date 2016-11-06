@@ -54,7 +54,7 @@ public class LivreTest {
 	@Test(expected=OperationImpossible.class)
 	public void testLivreNbPagesNegatif() throws OperationImpossible, InvariantBroken 
 	{
-		Livre li = new Livre("Code", localisation, "Titre", "Auteur", "Année", genre, -10);
+		new Livre("Code", localisation, "Titre", "Auteur", "Année", genre, -10);
 	}
 
 	@Test
