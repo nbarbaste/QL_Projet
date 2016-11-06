@@ -9,7 +9,6 @@ import org.junit.Test;
 import mediatheque.client.CategorieClient;
 import mediatheque.client.Client;
 import mediatheque.document.Audio;
-import mediatheque.document.Document;
 import util.Datutil;
 import util.InvariantBroken;
 
@@ -31,6 +30,8 @@ public class FicheEmpruntTest
 		double coefDuree = 3;
 		double coefTarif = 3;
 		boolean codeReducActif = false;
+		localisation = new Localisation("Salle","Rayon");
+		genre = new Genre("Nom");
 		cat = new CategorieClient(nom, max, cot, coefDuree, coefTarif, codeReducActif);
 		m = new Mediatheque("Nom");
 		c = new Client("Nom", "Prenom", "Adresse", cat);

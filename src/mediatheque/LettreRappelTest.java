@@ -30,6 +30,8 @@ public class LettreRappelTest
 		double coefDuree = 3;
 		double coefTarif = 3;
 		boolean codeReducActif = false;
+		localisation = new Localisation("Salle","Rayon");
+		genre = new Genre("Nom");
 		cat = new CategorieClient(nom, max, cot, coefDuree, coefTarif, codeReducActif);
 		m = new Mediatheque("Nom");
 		c = new Client("Nom", "Prenom", "Adresse", cat);
@@ -50,7 +52,7 @@ public class LettreRappelTest
 	@Test
 	public void testLettreRappel() throws OperationImpossible, InvariantBroken 
 	{
-		String nomMedia = "Non Media";
+		String nomMedia = "Nom Media";
 		FicheEmprunt ficheEmprunt = new FicheEmprunt(m, c , au);
 		
 		LettreRappel lettre = new LettreRappel(nomMedia, ficheEmprunt);

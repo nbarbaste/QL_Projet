@@ -164,16 +164,32 @@ public class MediathequeTest {
 
 	@Test
 	public void testAjouterLocalisation() throws OperationImpossible{
-		Mediatheque med1 = new Mediatheque("nom");
+		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterLocalisation(salle,rayon);
 		
 		assertEquals(new Localisation(salle,rayon),med1.chercherLocalisation(salle,rayon));
 	}
 
+	@Test(expected=OperationImpossible.class)
+	public void testModifierLocalisationImpossible() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.modifierLocalisation(new Localisation(salle,rayon),"newS","newR");
+	}
+	
 	@Test
-	public void testModifierLocalisation() {
-		fail("Not yet implemented");
+	public void testModifierLocalisation() throws OperationImpossible{
+		String newS = "nouveauS";
+		String newR = "nouveauR";
+		Localisation oldLoc = new Localisation(salle,rayon);
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterLocalisation(salle,rayon);
+		med1.modifierLocalisation(oldLoc,newS,newR);
+		
+		assertEquals(null,med1.chercherLocalisation(salle,rayon));
+		assertEquals(new Localisation(newS,newR),med1.chercherLocalisation(newS,newR));
 	}
 
 	@Test
