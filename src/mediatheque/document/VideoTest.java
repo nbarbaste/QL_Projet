@@ -73,10 +73,10 @@ public class VideoTest {
 		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
 	}
 
-	@Test
-	public void testInvariantVideoDureeNegative() 
+	@Test(expected=InvariantBroken.class)
+	public void testInvariantVideoDureeNegative() throws OperationImpossible, InvariantBroken 
 	{
-		fail("Not yet implemented");
+		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
 	}
 
 }
