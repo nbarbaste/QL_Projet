@@ -32,6 +32,7 @@ public class ClientTest {
 		loc = new Localisation("salle","rayon");
 		genre = new Genre("n");
 		audio = new Audio("code", loc, "titre", "auteur", "annee", genre, "classification");
+		audio.metEmpruntable();
 		cat1 = new CategorieClient("cat1",1,1,1,1,false);
 		cat2= new CategorieClient("cat2",2,2,2,2,false);
 		cl1 = new Client("nom","prenom","adresse",cat1,1);
@@ -94,17 +95,27 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testADesEmpruntsEnCours() throws OperationImpossible{
+	public void testADesEmpruntsEnCours1() throws OperationImpossible{
 		Client cl = new Client("nom","prenom");
 		assertFalse(cl.aDesEmpruntsEnCours());
+	}
+	
+	@Test
+	public void testADesEmpruntsEnCours2() throws OperationImpossible{
+		Client cl = new Client("nom","prenom");
 		cl.emprunter();
 		assertTrue(cl.aDesEmpruntsEnCours());
 	}
 
 	@Test
-	public void testPeutEmprunter() throws OperationImpossible{
+	public void testPeutEmprunter1() throws OperationImpossible{
 		Client cl = new Client("nom","prenom");
 		assertTrue(cl.peutEmprunter());
+	}
+	
+	@Test
+	public void testPeutEmprunter2() throws OperationImpossible{
+		Client cl = new Client("nom","prenom");
 		cl.emprunter();
 		cl.marquer();
 		assertFalse(cl.peutEmprunter());
@@ -112,7 +123,7 @@ public class ClientTest {
 
 	@Test
 	public void testEmprunterFicheEmprunt() throws OperationImpossible, InvariantBroken{
-		Client cl = new Client("nom","prenom");
+		Client cl = new Client("nom","prenom","adresse",cat1);
 		FicheEmprunt fiche = new FicheEmprunt(med,cl,audio);
 		
 		int effectues = cl.getNbEmpruntsEffectues();
