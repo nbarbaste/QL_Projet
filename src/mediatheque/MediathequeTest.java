@@ -15,14 +15,20 @@ public class MediathequeTest {
 	String salle = "Salle";
 	String rayon = "Rayon";
 	Mediatheque med;
+	Localisation localisation;
+	Genre genre;
+	Audio au;
 
 	@Before
 	public void setUp() throws Exception {
 		med = new Mediatheque("nom");
+		au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		med = null;
+		au = null;
 	}
 
 	@Test
@@ -203,9 +209,14 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testAjouterDocument() 
+	public void testAjouterDocument() throws OperationImpossible 
 	{
-		fail("Not yet implemented");
+		Mediatheque med1 = new Mediatheque(nom);
+		String codeDoc = au.getCode();
+		
+		med1.ajouterDocument(au);
+		
+		assertSame(au, med1.chercherDocument(codeDoc));
 	}
 
 	@Test
