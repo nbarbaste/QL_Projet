@@ -253,14 +253,55 @@ public class MediathequeTest {
 		assertEquals(null,med1.chercherCatClient(nomCat));
 	}
 
-	@Test
-	public void testAjouterCatClient() {
-		fail("Not yet implemented");
+	@Test(expected=OperationImpossible.class)
+	public void testAjouterCatClientImpossible() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 	}
 
 	@Test
-	public void testModifierCatClient() {
-		fail("Not yet implemented");
+	public void testAjouterCatClient() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		
+		assertEquals(new CategorieClient(nomCat,max,cot,coefD,coefT,codeR),med1.chercherCatClient(nomCat));
+	}
+
+	@Test(expected=OperationImpossible.class)
+	public void testModifierCatClientImpossible() throws OperationImpossible{
+		String nnomCat = "NouveauNom";
+		int nmax = 4;
+		double ncot = 4;
+		double ncoefD = 4;
+		double ncoefT = 4;
+		boolean ncodeR = false;
+		
+		Mediatheque med1 = new Mediatheque(nom);
+		CategorieClient cat1 = new CategorieClient(nomCat,max,cot,coefD,coefT,codeR);
+		
+		med1.modifierCatClient(cat1,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
+	}
+	
+	@Test
+	public void testModifierCatClient() throws OperationImpossible{
+		String nnomCat = "NouveauNom";
+		int nmax = 4;
+		double ncot = 4;
+		double ncoefD = 4;
+		double ncoefT = 4;
+		boolean ncodeR = false;
+		
+		Mediatheque med1 = new Mediatheque(nom);
+		CategorieClient cat1 = new CategorieClient(nomCat,max,cot,coefD,coefT,codeR);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		med1.modifierCatClient(cat1,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
+		
+		assertEquals(null,med1.chercherCatClient(nomCat));
+		assertEquals(new CategorieClient(nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR),med1.chercherCatClient(nomCat));
 	}
 
 	@Test
