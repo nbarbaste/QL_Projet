@@ -2,6 +2,8 @@ package mediatheque.client;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +14,25 @@ import mediatheque.Mediatheque;
 import mediatheque.OperationImpossible;
 import mediatheque.document.Audio;
 import mediatheque.document.Document;
+import util.Datutil;
 
 public class ClientTest {
+	public Mediatheque med;
+	public Client monClient;
+	public Audio myDoc;
 
 	@Before
 	public void setUp() throws Exception {
-		Mediatheque med = new Mediatheque("SuperMedia");
-		Client monClient = new Client("Dupond","Jean");
-		Audio myDoc = new Audio("code", new Localisation("salle","rayon"), "titre", "auteur", "annee", new Genre("n"), "classification");
+		med = new Mediatheque("SuperMedia");
+		monClient = new Client("Dupond","Jean");
+		myDoc = new Audio("code", new Localisation("salle","rayon"), "titre", "auteur", "annee", new Genre("n"), "classification");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		med = null;
+		monClient = null;
+		myDoc = null;
 	}
 
 	@Test
@@ -89,7 +98,15 @@ public class ClientTest {
 
 	@Test
 	public void testEmprunter() {
-		fail("Not yet implemented");
+		Client client1 = new Client("nom","prenom");
+		
+		int effectues = client1.getNbEmpruntsEffectues();
+        int enCours = client1.getNbEmpruntsEnCours();
+        
+        client1.emprunter();
+        
+        assertTrue(client1.getNbEmpruntsEffectues()==effectues+1);
+        assertTrue(client1.getNbEmpruntsEnCours()==enCours+1);
 	}
 
 	@Test
@@ -108,18 +125,12 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testAfficherStatistiques() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAfficherStatCli() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testDateRetour() {
-		fail("Not yet implemented");
+		Date jour = new Date(2010,10,10);
+		int duree = 7;
+		
+		Date nouveauJour = monClient.dateRetour(jour,duree);
+		assertTrue(nouveauJour.equals(Datutil.addDate(jour, duree)));
 	}
 
 	@Test
