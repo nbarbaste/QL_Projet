@@ -79,5 +79,12 @@ public class VideoTest
 	{
 		new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
 	}
+	
+	@Test
+	public void testInvariantOK() throws OperationImpossible, InvariantBroken 
+	{
+		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 120, "Mention Légale");
+		assertTrue(vi.invariantVideo());
+	}
 
 }
