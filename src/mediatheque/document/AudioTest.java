@@ -44,7 +44,7 @@ public class AudioTest
 		Audio au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
 		int nbEmpruntsTotal_avant = au.getNbEmprunts();
 		assertTrue(au.emprunter());
-		assertTrue(au.getNbEmprunts() == (nbEmpruntsTotal_avant + 1));
+		assertEquals((nbEmpruntsTotal_avant + 1), au.getNbEmprunts());
 	}
 
 	@Test
@@ -53,11 +53,11 @@ public class AudioTest
 		Audio au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
 		
 		assertTrue(au.getCode().equals("Code"));
-		assertSame(au.getLocalisation(), localisation);
+		assertSame(localisation, au.getLocalisation());
 		assertTrue(au.getTitre().equals("Titre"));
 		assertTrue(au.getAuteur().equals("Auteur"));
 		assertTrue(au.getAnnee().equals("Année"));
-		assertSame(au.getGenre(), genre);
+		assertSame(genre, au.getGenre());
 		assertTrue(au.getClassification().equals("Classification"));
 	}
 	
