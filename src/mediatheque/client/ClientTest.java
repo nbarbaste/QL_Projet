@@ -25,6 +25,7 @@ public class ClientTest {
 	public Audio audio;
 	public CategorieClient cat1, cat2;
 	public Client cl1, cl2;
+	static final double delta = 0.00001;
 
 	@Before
 	public void setUp() throws Exception , OperationImpossible{
@@ -32,7 +33,6 @@ public class ClientTest {
 		loc = new Localisation("salle","rayon");
 		genre = new Genre("n");
 		audio = new Audio("code", loc, "titre", "auteur", "annee", genre, "classification");
-		audio.metEmpruntable();
 		cat1 = new CategorieClient("cat1",1,1,1,1,false);
 		cat2= new CategorieClient("cat2",2,2,2,2,false);
 		cl1 = new Client("nom","prenom","adresse",cat1,1);
@@ -108,13 +108,13 @@ public class ClientTest {
 	}
 
 	@Test
-	public void testPeutEmprunter1() throws OperationImpossible{
+	public void testPeutEmprunter() throws OperationImpossible{
 		Client cl = new Client("nom","prenom");
 		assertTrue(cl.peutEmprunter());
 	}
 	
 	@Test
-	public void testPeutEmprunter2() throws OperationImpossible{
+	public void testNePeutPasEmprunter2() throws OperationImpossible{
 		Client cl = new Client("nom","prenom");
 		cl.emprunter();
 		cl.marquer();
@@ -124,6 +124,7 @@ public class ClientTest {
 	@Test
 	public void testEmprunterFicheEmprunt() throws OperationImpossible, InvariantBroken{
 		Client cl = new Client("nom","prenom","adresse",cat1);
+		audio.metEmpruntable();
 		FicheEmprunt fiche = new FicheEmprunt(med,cl,audio);
 		
 		int effectues = cl.getNbEmpruntsEffectues();
@@ -168,6 +169,7 @@ public class ClientTest {
 	@Test(expected=OperationImpossible.class)
 	public void testRestituerFicheEmpruntImpossible() throws OperationImpossible, InvariantBroken{
 		Client cl = new Client("nom","prenom");
+		audio.metEmpruntable();
 		FicheEmprunt fiche = new FicheEmprunt(med,cl,audio);
 		
 		cl.restituer(fiche);
@@ -175,7 +177,8 @@ public class ClientTest {
 	
 	@Test
 	public void testRestituerFicheEmprunt() throws OperationImpossible, InvariantBroken{
-		Client cl = new Client("nom","prenom");
+		Client cl = new Client("nom","prenom","adresse",cat1,1);
+		audio.metEmpruntable();
 		FicheEmprunt fiche = new FicheEmprunt(med,cl,audio);
 		int emp;
 		
@@ -199,6 +202,7 @@ public class ClientTest {
 	@Test
 	public void testRestituerFicheBoolean() throws OperationImpossible, InvariantBroken{
 		Client cl = new Client("nom","prenom");
+		audio.metEmpruntable();
 		FicheEmprunt fiche = new FicheEmprunt(med,cl,audio);
 		int emp, ret;
 		
@@ -227,8 +231,8 @@ public class ClientTest {
 	@Test
 	public void testSommeDue() {
 		int tarif = 15;
-		assertEquals((int)cl1.sommeDue(tarif),(int)cat1.getCoefTarif()*tarif);
-		assertEquals((int)cl2.sommeDue(tarif),(int)cat2.getCoefTarif()*tarif);
+		assertEquals(cl1.sommeDue(tarif),cat1.getCoefTarif()*tarif,delta);
+		assertEquals(cl2.sommeDue(tarif),cat2.getCoefTarif()*tarif,delta);
 	}
 
 	@Test
