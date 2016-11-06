@@ -73,7 +73,7 @@ public class ClientTest {
 		assertTrue(cl.getNom().equals(nom));
 		assertTrue(cl.getPrenom().equals(prenom));
 		assertTrue(cl.getAdresse().equals(adresse));
-		assertSame(cl.getCategorie(),catClient);
+		assertSame(catClient,cl.getCategorie());
 	}
 	
 	@Test(expected=OperationImpossible.class)
@@ -99,8 +99,8 @@ public class ClientTest {
 		assertTrue(cl.getNom().equals(nom));
 		assertTrue(cl.getPrenom().equals(prenom));
 		assertTrue(cl.getAdresse().equals(adresse));
-		assertSame(cl.getCategorie(),catClient);
-		assertEquals(cl.getReduc(),code);
+		assertSame(catClient,cl.getCategorie());
+		assertEquals(code,cl.getReduc());
 	}
 
 	@Test
@@ -206,7 +206,7 @@ public class ClientTest {
 		emp = cl.getNbEmpruntsEnCours();
 		
 		cl.restituer(fiche);
-		assertEquals(cl.getNbEmpruntsEnCours(),emp-1);
+		assertEquals(emp-1,cl.getNbEmpruntsEnCours());
 	}
 	
 	
@@ -233,8 +233,8 @@ public class ClientTest {
 		ret = cl.getNbEmpruntsEnRetard();
 		cl.restituer(true);
 		
-		assertEquals(cl.getNbEmpruntsEnCours(),emp-1);
-		assertEquals(cl.getNbEmpruntsEnRetard(),ret-1);
+		assertEquals(emp-1,cl.getNbEmpruntsEnCours());
+		assertEquals(ret-1,cl.getNbEmpruntsEnRetard());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -245,14 +245,14 @@ public class ClientTest {
 		
 		Date nouveauJour = cl1.dateRetour(jour,duree);
 		
-		assertEquals(nouveauJour,Datutil.addDate(jour, duree));
+		assertEquals(Datutil.addDate(jour, duree),nouveauJour);
 	}
 
 	@Test
 	public void testSommeDue() {
 		int tarif = 15;
-		assertEquals(cl1.sommeDue(tarif),cat1.getCoefTarif()*tarif,delta);
-		assertEquals(cl2.sommeDue(tarif),cat2.getCoefTarif()*tarif,delta);
+		assertEquals(cat1.getCoefTarif()*tarif,cl1.sommeDue(tarif),delta);
+		assertEquals(cat2.getCoefTarif()*tarif,cl2.sommeDue(tarif),delta);
 	}
 
 	@Test
