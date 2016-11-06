@@ -6,14 +6,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import mediatheque.client.CategorieClient;
 import mediatheque.document.Audio;
 import util.InvariantBroken;
 
 public class MediathequeTest {
 	String nom = "Nom";
+	String prenom = "Prenom";
+	String adresse = "Adresse";
 	String nomGenre = "Genre";
+	String nomCat = "Cat";
 	String salle = "Salle";
 	String rayon = "Rayon";
+	int max = 3;
+	double cot = 3;
+	double coefD = 3;
+	double coefT = 3;
+	boolean codeR = false;
 	Mediatheque med;
 	Localisation localisation;
 	Genre genre;
@@ -203,13 +212,45 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testChercherCatClient() {
-		fail("Not yet implemented");
+	public void testChercherCatClientEchec() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		assertEquals(null,med1.chercherCatClient(nomCat));
 	}
 
 	@Test
-	public void testSupprimerCatClient() {
-		fail("Not yet implemented");
+	public void testChercherCatClient() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		
+		assertEquals(new CategorieClient(nomCat,max,cot,coefD,coefT,codeR),med1.chercherCatClient(nomCat));
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testSupprimerCatClientImpossible1() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.supprimerCatClient(nomCat);
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testSupprimerCatClientImpossible2() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		med1.inscrire(nomCat,prenom,adresse,nom);
+		med1.supprimerCatClient(nomCat);
+	}
+
+	@Test
+	public void testSupprimerCatClient() throws OperationImpossible{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
+		med1.supprimerCatClient(nomCat);
+		
+		assertEquals(null,med1.chercherCatClient(nomCat));
 	}
 
 	@Test
