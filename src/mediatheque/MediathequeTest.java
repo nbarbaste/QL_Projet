@@ -203,17 +203,20 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testChercherDocument() {
+	public void testChercherDocument() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testAjouterDocument() {
+	public void testAjouterDocument() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRetirerDocument() {
+	public void testRetirerDocument() 
+	{
 		fail("Not yet implemented");
 	}
 

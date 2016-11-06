@@ -37,7 +37,7 @@ public class VideoTest
 		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 120, "Mention Légale");
 		int nbEmpruntsTotal_avant = vi.getNbEmprunts();
 		assertTrue(vi.emprunter());
-		assertTrue(vi.getNbEmprunts() == (nbEmpruntsTotal_avant + 1));
+		assertEquals((nbEmpruntsTotal_avant + 1), vi.getNbEmprunts());
 	}
 
 
@@ -47,12 +47,12 @@ public class VideoTest
 		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, 120, "Mention Légale");
 		
 		assertTrue(vi.getCode().equals("Code"));
-		assertSame(vi.getLocalisation(), localisation);
+		assertSame(localisation, vi.getLocalisation());
 		assertTrue(vi.getTitre().equals("Titre"));
 		assertTrue(vi.getAuteur().equals("Auteur"));
 		assertTrue(vi.getAnnee().equals("Année"));
-		assertSame(vi.getGenre(), genre);
-		assertEquals(vi.getDureeFilm(), 120);
+		assertSame(genre, vi.getGenre());
+		assertEquals(120, vi.getDureeFilm());
 		assertTrue(vi.getMentionLegale().equals("Mention Légale"));
 	}
 	

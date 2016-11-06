@@ -40,6 +40,12 @@ public class FicheEmpruntTest
 	@After
 	public void tearDown() throws Exception 
 	{
+		m = null;
+		cat = null;
+		c = null;
+		au = null;
+		localisation = null;
+		genre = null;
 		
 	}
 
@@ -49,11 +55,11 @@ public class FicheEmpruntTest
 		FicheEmprunt ficheEmprunt = new FicheEmprunt(m, c, au);
 		
 		// assertSame(ficheEmprunt.getMediatheque(), m);
-		assertSame(ficheEmprunt.getClient(), c);
-		assertSame(ficheEmprunt.getDocument(), au);
-		assertEquals(ficheEmprunt.getDateEmprunt(), Datutil.dateDuJour());
-		assertEquals(ficheEmprunt.getDureeEmprunt(), au.dureeEmprunt());
-		assertEquals(ficheEmprunt.getDateLimite(), c.dateRetour(Datutil.dateDuJour(), au.dureeEmprunt()));
+		assertSame(c, ficheEmprunt.getClient());
+		assertSame(au, ficheEmprunt.getDocument());
+		assertEquals(Datutil.dateDuJour(), ficheEmprunt.getDateEmprunt());
+		assertEquals(au.dureeEmprunt(), ficheEmprunt.getDureeEmprunt());
+		assertEquals(c.dateRetour(Datutil.dateDuJour(), au.dureeEmprunt()), ficheEmprunt.getDateLimite());
 		assertFalse(ficheEmprunt.getDepasse());
 	}
 

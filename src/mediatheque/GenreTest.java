@@ -27,7 +27,7 @@ public class GenreTest
 		Genre genre = new Genre("Nom");
 		
 		assertTrue(genre.getNom().equals("Nom"));
-		assertEquals(genre.getNbEmprunts(), 1);
+		assertEquals(1, genre.getNbEmprunts());
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class GenreTest
 		
 		genre.emprunter();
 		
-		assertEquals(genre.getNbEmprunts(), (nbEmprunts_avant + 1));
+		assertEquals((nbEmprunts_avant + 1), genre.getNbEmprunts());
 	}
 
 }

@@ -44,11 +44,11 @@ public class LivreTest
 		Livre li = new Livre("Code", localisation, "Titre", "Auteur", "Année", genre, 220);
 		
 		assertTrue(li.getCode().equals("Code"));
-		assertSame(li.getLocalisation(), localisation);
+		assertSame(localisation, li.getLocalisation());
 		assertTrue(li.getTitre().equals("Titre"));
 		assertTrue(li.getAuteur().equals("Auteur"));
 		assertTrue(li.getAnnee().equals("Année"));
-		assertSame(li.getGenre(), genre);
+		assertSame(genre, li.getGenre());
 		// On peut pas tester le nombre de pages car pas de getter...
 	}
 	
