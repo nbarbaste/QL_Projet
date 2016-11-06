@@ -77,7 +77,7 @@ public class VideoTest
 	@Test(expected=InvariantBroken.class)
 	public void testInvariantVideoDureeNegative() throws OperationImpossible, InvariantBroken 
 	{
-		Video vi = new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
+		new Video("Code", localisation, "Titre", "Auteur", "Année", genre, -10 , "Mention Légale");
 	}
 
 }

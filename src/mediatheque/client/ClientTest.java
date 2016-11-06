@@ -50,6 +50,16 @@ public class ClientTest {
 		cl1 = null;
 		cl2 = null;
 	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testClientStringStringStringCategorieClientImpossible() throws OperationImpossible {
+		String nom = "nom";
+		String prenom = "prenom";
+		String adresse = "adresse";
+		CategorieClient cat = new CategorieClient(nom, 3, 3, 3, 3, true);
+		
+		new Client(nom,prenom,adresse,cat);
+	}
 
 	@Test
 	public void testClientStringStringStringCategorieClient() throws OperationImpossible {
@@ -64,6 +74,16 @@ public class ClientTest {
 		assertTrue(cl.getPrenom().equals(prenom));
 		assertTrue(cl.getAdresse().equals(adresse));
 		assertSame(cl.getCategorie(),catClient);
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testClientStringStringStringCategorieClientIntImpossible() throws OperationImpossible {
+		String nom = "nom";
+		String prenom = "prenom";
+		String adresse = "adresse";
+		CategorieClient cat = new CategorieClient(nom, 3, 3, 3, 3, true);
+		
+		new Client(nom,prenom,adresse,cat,3);
 	}
 
 	@Test
