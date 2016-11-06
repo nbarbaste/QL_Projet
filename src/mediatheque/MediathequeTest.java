@@ -264,26 +264,98 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testChercherDocument() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAjouterDocument() throws OperationImpossible 
+	public void testChercherDocument() throws OperationImpossible 
 	{
 		Mediatheque med1 = new Mediatheque(nom);
 		String codeDoc = au.getCode();
 		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
 		med1.ajouterDocument(au);
 		
 		assertSame(au, med1.chercherDocument(codeDoc));
 	}
 
 	@Test
-	public void testRetirerDocument() 
+	public void testAjouterDocumentOK() throws OperationImpossible 
 	{
-		fail("Not yet implemented");
+		Mediatheque med1 = new Mediatheque(nom);
+		String codeDoc = au.getCode();
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		assertSame(au, med1.chercherDocument(codeDoc));
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testAjouterDocumentSansGenreDansMed() throws OperationImpossible 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+	}
+
+	@Test(expected=OperationImpossible.class)
+	public void testAjouterDocumentSansLocalisationDansMed() throws OperationImpossible 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterDocument(au);
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testAjouterDocumentDejaExistant() throws OperationImpossible 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		med1.ajouterDocument(au);	
+	}
+	
+	@Test
+	public void testRetirerDocumentOK() throws OperationImpossible 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.retirerDocument(au.getCode());
+		
+		assertEquals(null, med1.chercherDocument(au.getCode()));
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testRetirerDocumentEmprunte() throws OperationImpossible, InvariantBroken 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		Audio auEmprunte = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
+		
+		auEmprunte.emprunter();
+		med1.ajouterGenre(auEmprunte.getGenre().getNom());
+		med1.ajouterLocalisation(auEmprunte.getLocalisation().getSalle(), auEmprunte.getLocalisation().getRayon());
+		med1.ajouterDocument(auEmprunte);
+		
+		med1.retirerDocument(auEmprunte.getCode());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testRetirerDocumentNonExistant() throws OperationImpossible 
+	{
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.retirerDocument("Code2");
 	}
 
 	@Test
