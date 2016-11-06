@@ -22,6 +22,8 @@ public class MediathequeTest {
 	@Before
 	public void setUp() throws Exception {
 		med = new Mediatheque("nom");
+		genre = new Genre(nom);
+		localisation = new Localisation(salle,rayon);
 		au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
 	}
 
@@ -29,6 +31,8 @@ public class MediathequeTest {
 	public void tearDown() throws Exception {
 		med = null;
 		au = null;
+		genre = null;
+		localisation = null;
 	}
 
 	@Test
