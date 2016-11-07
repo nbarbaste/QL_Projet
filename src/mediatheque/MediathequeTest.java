@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import mediatheque.client.CategorieClient;
+import mediatheque.client.Client;
 import mediatheque.document.Audio;
 import util.InvariantBroken;
 
@@ -27,13 +28,17 @@ public class MediathequeTest {
 	Localisation localisation;
 	Genre genre;
 	Audio au;
+	CategorieClient cat;
+	Client cl;
 
 	@Before
 	public void setUp() throws Exception {
 		med = new Mediatheque("nom");
-		genre = new Genre(nom);
+		genre = new Genre(nomGenre);
 		localisation = new Localisation(salle,rayon);
 		au = new Audio("Code", localisation, "Titre", "Auteur", "Année", genre, "Classification");
+		cat = new CategorieClient(nomCat,max,cot,coefD,coefT,codeR);
+		cl = new Client(nom,prenom,adresse,cat,1);
 	}
 
 	@After
@@ -42,6 +47,8 @@ public class MediathequeTest {
 		au = null;
 		genre = null;
 		localisation = null;
+		cat = null;
+		cl = null;
 	}
 
 	@Test
@@ -64,7 +71,7 @@ public class MediathequeTest {
 		
 		med1.ajouterGenre(nomGenre);
 		
-		assertEquals(new Genre(nomGenre),med1.chercherGenre(nomGenre));
+		assertEquals(genre,med1.chercherGenre(nomGenre));
 	}
 
 	@Test(expected=OperationImpossible.class)
@@ -77,10 +84,9 @@ public class MediathequeTest {
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerGenreImpossible2() throws OperationImpossible, InvariantBroken{
 		Mediatheque med1 = new Mediatheque(nom);
-		Audio audio = new Audio("code",new Localisation("salle","rayon"),"titre","auteur","annee",new Genre(nomGenre),"class");
 		
 		med1.ajouterGenre(nomGenre);
-		med1.ajouterDocument(audio);
+		med1.ajouterDocument(au);
 		med1.supprimerGenre(nomGenre);
 	}
 	
@@ -108,7 +114,7 @@ public class MediathequeTest {
 		
 		med1.ajouterGenre(nomGenre);
 		
-		assertEquals(new Genre(nomGenre),med1.chercherGenre(nomGenre));
+		assertEquals(genre,med1.chercherGenre(nomGenre));
 	}
 
 	@Test(expected=OperationImpossible.class)
@@ -140,10 +146,9 @@ public class MediathequeTest {
 	@Test(expected=OperationImpossible.class)
 	public void testSupprimerLocalisationImpossible2() throws OperationImpossible, InvariantBroken{
 		Mediatheque med1 = new Mediatheque(nom);
-		Audio audio = new Audio("code",new Localisation(salle,rayon),"titre","auteur","annee",new Genre("nom"),"class");
 		
 		med1.ajouterLocalisation(salle,rayon);
-		med1.ajouterDocument(audio);
+		med1.ajouterDocument(au);
 		med1.supprimerLocalisation(salle,rayon);
 	}
 
@@ -170,7 +175,7 @@ public class MediathequeTest {
 		
 		med1.ajouterLocalisation(salle,rayon);
 		
-		assertEquals(new Localisation(salle,rayon),med1.chercherLocalisation(salle,rayon));
+		assertEquals(localisation,med1.chercherLocalisation(salle,rayon));
 	}
 
 	@Test(expected=OperationImpossible.class)
@@ -187,25 +192,24 @@ public class MediathequeTest {
 		
 		med1.ajouterLocalisation(salle,rayon);
 		
-		assertEquals(new Localisation(salle,rayon),med1.chercherLocalisation(salle,rayon));
+		assertEquals(localisation,med1.chercherLocalisation(salle,rayon));
 	}
 
 	@Test(expected=OperationImpossible.class)
 	public void testModifierLocalisationImpossible() throws OperationImpossible{
 		Mediatheque med1 = new Mediatheque(nom);
 		
-		med1.modifierLocalisation(new Localisation(salle,rayon),"newS","newR");
+		med1.modifierLocalisation(localisation,"newS","newR");
 	}
 	
 	@Test
 	public void testModifierLocalisation() throws OperationImpossible{
 		String newS = "nouveauS";
 		String newR = "nouveauR";
-		Localisation oldLoc = new Localisation(salle,rayon);
 		Mediatheque med1 = new Mediatheque(nom);
 		
 		med1.ajouterLocalisation(salle,rayon);
-		med1.modifierLocalisation(oldLoc,newS,newR);
+		med1.modifierLocalisation(localisation,newS,newR);
 		
 		assertEquals(null,med1.chercherLocalisation(salle,rayon));
 		assertEquals(new Localisation(newS,newR),med1.chercherLocalisation(newS,newR));
@@ -224,7 +228,7 @@ public class MediathequeTest {
 		
 		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		
-		assertEquals(new CategorieClient(nomCat,max,cot,coefD,coefT,codeR),med1.chercherCatClient(nomCat));
+		assertEquals(cat,med1.chercherCatClient(nomCat));
 	}
 	
 	@Test(expected=OperationImpossible.class)
@@ -267,7 +271,7 @@ public class MediathequeTest {
 		
 		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		
-		assertEquals(new CategorieClient(nomCat,max,cot,coefD,coefT,codeR),med1.chercherCatClient(nomCat));
+		assertEquals(cat,med1.chercherCatClient(nomCat));
 	}
 
 	@Test(expected=OperationImpossible.class)
@@ -280,9 +284,8 @@ public class MediathequeTest {
 		boolean ncodeR = false;
 		
 		Mediatheque med1 = new Mediatheque(nom);
-		CategorieClient cat1 = new CategorieClient(nomCat,max,cot,coefD,coefT,codeR);
 		
-		med1.modifierCatClient(cat1,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
+		med1.modifierCatClient(cat,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
 	}
 	
 	@Test
@@ -295,10 +298,9 @@ public class MediathequeTest {
 		boolean ncodeR = false;
 		
 		Mediatheque med1 = new Mediatheque(nom);
-		CategorieClient cat1 = new CategorieClient(nomCat,max,cot,coefD,coefT,codeR);
 		
 		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
-		med1.modifierCatClient(cat1,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
+		med1.modifierCatClient(cat,nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR);
 		
 		assertEquals(null,med1.chercherCatClient(nomCat));
 		assertEquals(new CategorieClient(nnomCat,nmax,ncot,ncoefD,ncoefT,ncodeR),med1.chercherCatClient(nomCat));
@@ -423,15 +425,39 @@ public class MediathequeTest {
 	public void testVerifier() {
 		fail("Not yet implemented");
 	}
-
+	
+	@Test(expected=OperationImpossible.class)
+	public void testInscrireStringStringStringStringImpossible() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		med1.inscrire(nom,prenom,adresse,nomCat);
+	}
+	
 	@Test
-	public void testInscrireStringStringStringString() {
-		fail("Not yet implemented");
+	public void testInscrireStringStringStringString() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		
+		assertEquals(cl,med1.chercherClient(nom,prenom));
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testInscrireStringStringStringStringIntImpossible() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.inscrire(nom,prenom,adresse,nomCat,1);
+		med1.inscrire(nom,prenom,adresse,nomCat,1);
 	}
 
 	@Test
-	public void testInscrireStringStringStringStringInt() {
-		fail("Not yet implemented");
+	public void testInscrireStringStringStringStringInt() throws OperationImpossible {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.inscrire(nom,prenom,adresse,nomCat,1);
+		
+		assertEquals(cl,med1.chercherClient(nom,prenom));
 	}
 
 	@Test
