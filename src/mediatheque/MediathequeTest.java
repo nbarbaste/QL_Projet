@@ -402,18 +402,75 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testMetEmpruntable() {
-		fail("Not yet implemented");
+	public void testMetEmpruntableOK() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.metEmpruntable(au.getCode());
+		
+		assertTrue(med1.chercherDocument(au.getCode()).estEmpruntable());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testMetEmpruntableDocNull() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.metEmpruntable(au.getCode());
 	}
 
 	@Test
-	public void testMetConsultable() {
-		fail("Not yet implemented");
+	public void testMetConsultableOK() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.metConsultable(au.getCode());
+		
+		//assertTrue(med1.chercherDocument(au.getCode()).estConsultable());
+		// manque le getteur de consultable...
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testMetConsultableDocNull() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+
+		med1.metConsultable(au.getCode());
 	}
 
 	@Test
-	public void testEmprunter() {
-		fail("Not yet implemented");
+	public void testEmprunterOK() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.emprunter(nom, prenom, au.getCode());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testEmprunterClientNonExistant() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.emprunter(nom, prenom, au.getCode());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testEmprunterDocNull() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		
+		med1.emprunter(nom, prenom, au.getCode());
 	}
 
 	@Test
