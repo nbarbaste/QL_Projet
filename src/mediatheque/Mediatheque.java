@@ -95,7 +95,7 @@ public final class Mediatheque implements Serializable {
                         System.out.println("\t" + nom);
                 }
                 Genre g = chercherGenre(nom);
-                if (g != null) {
+                if (g == null) {
                         throw new OperationImpossible("Genre " + nom + " inexistant");
                 } else {
                         if (existeDocument(g)) {
@@ -131,7 +131,7 @@ public final class Mediatheque implements Serializable {
          */
         public void modifierGenre(String old, String neuf) throws OperationImpossible {
                 Genre g = chercherGenre(old);
-                if (g != null) {
+                if (g == null) {
                         throw new OperationImpossible("Genre \""
                                         + old + "\" inexistant");
                 } else {
@@ -173,7 +173,7 @@ public final class Mediatheque implements Serializable {
                         System.out.println("Mediatheque: suppression d'une localisation.");
                         System.out.println("\t" + salle + "\t" + rayon);
                 }
-                Localisation l = chercherLocalisation(rayon, salle);
+                Localisation l = chercherLocalisation(salle, rayon);
                 if (l == null){
                         throw new OperationImpossible("Localisation " + salle + " " +
                                         rayon + " inexistant");
@@ -275,7 +275,7 @@ public final class Mediatheque implements Serializable {
                 CategorieClient searched = new CategorieClient(catName);
                 int index = lesCatsClient.indexOf(searched);
                 if (index >= 0) {
-                        return lesCatsClient.elementAt(index+1);
+                        return lesCatsClient.elementAt(index);
                 } else {
                         return null;
                 }
