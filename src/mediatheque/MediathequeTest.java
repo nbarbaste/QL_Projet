@@ -487,6 +487,7 @@ public class MediathequeTest {
 	public void testInscrireStringStringStringStringImpossible() throws OperationImpossible {
 		Mediatheque med1 = new Mediatheque(nom);
 		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		med1.inscrire(nom,prenom,adresse,nomCat);
 		med1.inscrire(nom,prenom,adresse,nomCat);
 	}
@@ -505,6 +506,7 @@ public class MediathequeTest {
 	public void testInscrireStringStringStringStringIntImpossible() throws OperationImpossible {
 		Mediatheque med1 = new Mediatheque(nom);
 		
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		med1.inscrire(nom,prenom,adresse,nomCat,1);
 		med1.inscrire(nom,prenom,adresse,nomCat,1);
 	}
