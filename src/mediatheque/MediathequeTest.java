@@ -441,8 +441,34 @@ public class MediathequeTest {
 	}
 
 	@Test
-	public void testEmprunter() {
-		fail("Not yet implemented");
+	public void testEmprunterOK() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.emprunter(nom, prenom, au.getCode());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testEmprunterClientNonExistant() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		
+		med1.ajouterGenre(au.getGenre().getNom());
+		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
+		med1.ajouterDocument(au);
+		
+		med1.emprunter(nom, prenom, au.getCode());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testEmprunterDocNull() throws OperationImpossible, InvariantBroken {
+		Mediatheque med1 = new Mediatheque(nom);
+		med1.inscrire(nom,prenom,adresse,nomCat);
+		
+		med1.emprunter(nom, prenom, au.getCode());
 	}
 
 	@Test
