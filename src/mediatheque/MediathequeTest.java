@@ -445,6 +445,7 @@ public class MediathequeTest {
 	@Test
 	public void testEmprunterOK() throws OperationImpossible, InvariantBroken {
 		Mediatheque med1 = new Mediatheque(nom);
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		med1.inscrire(nom,prenom,adresse,nomCat);
 		
 		med1.ajouterGenre(au.getGenre().getNom());
@@ -468,6 +469,7 @@ public class MediathequeTest {
 	@Test(expected=OperationImpossible.class)
 	public void testEmprunterDocNull() throws OperationImpossible, InvariantBroken {
 		Mediatheque med1 = new Mediatheque(nom);
+		med1.ajouterCatClient(nomCat,max,cot,coefD,coefT,codeR);
 		med1.inscrire(nom,prenom,adresse,nomCat);
 		
 		med1.emprunter(nom, prenom, au.getCode());
