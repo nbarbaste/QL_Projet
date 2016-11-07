@@ -451,6 +451,7 @@ public class MediathequeTest {
 		med1.ajouterGenre(au.getGenre().getNom());
 		med1.ajouterLocalisation(au.getLocalisation().getSalle(), au.getLocalisation().getRayon());
 		med1.ajouterDocument(au);
+		med1.chercherDocument(au.getCode()).metEmpruntable();
 		
 		med1.emprunter(nom, prenom, au.getCode());
 	}
@@ -521,46 +522,6 @@ public class MediathequeTest {
 		med1.inscrire(nom,prenom,adresse,nomCat,1);
 		
 		assertEquals(cl,med1.chercherClient(nom,prenom));
-	}
-
-	@Test
-	public void testResilier() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testModifierClient() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testChangerCategorie() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testChangerCodeReduction() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testChercherClient() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testExisteClient() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFindClient() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testInitFromFile() {
-		fail("Not yet implemented");
 	}
 
 }
